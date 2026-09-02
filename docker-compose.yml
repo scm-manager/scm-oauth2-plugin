@@ -1,0 +1,7 @@
+services:
+  dex:
+    image: dexidp/dex:v2.39.0
+    ports:
+      - "5556:5556"
+    volumes:
+      - ./dex.yaml:/etc/dex/config.docker.yaml
