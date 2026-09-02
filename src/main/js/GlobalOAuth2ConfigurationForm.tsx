@@ -145,7 +145,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
             name="authorizationUrl"
             label={t("scm-oauth2-plugin.form.authorizationUrl")}
             helpText={t("scm-oauth2-plugin.form.authorizationUrlHelp")}
-            disabled={!this.state.enabled || !!this.state.discoveryUrl}
+            disabled={!this.state.enabled || !this.state.discoveryUrl}
             value={this.state.authorizationUrl}
             onChange={this.valueChangeHandler}
             type="url"
@@ -154,7 +154,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
             name="tokenUrl"
             label={t("scm-oauth2-plugin.form.tokenUrl")}
             helpText={t("scm-oauth2-plugin.form.tokenUrlHelp")}
-            disabled={!this.state.enabled || !!this.state.discoveryUrl}
+            disabled={!this.state.enabled || !this.state.discoveryUrl}
             value={this.state.tokenUrl}
             onChange={this.valueChangeHandler}
             type="url"
@@ -163,7 +163,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
             name="userinfoUrl"
             label={t("scm-oauth2-plugin.form.userinfoUrl")}
             helpText={t("scm-oauth2-plugin.form.userinfoUrlHelp")}
-            disabled={!this.state.enabled || !!this.state.discoveryUrl}
+            disabled={!this.state.enabled || !this.state.discoveryUrl}
             value={this.state.userinfoUrl}
             onChange={this.valueChangeHandler}
             type="url"
@@ -172,7 +172,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
             name="endSessionUrl"
             label={t("scm-oauth2-plugin.form.endSessionUrl")}
             helpText={t("scm-oauth2-plugin.form.endSessionUrlHelp")}
-            disabled={!this.state.enabled || !!this.state.discoveryUrl}
+            disabled={!this.state.enabled || !this.state.discoveryUrl}
             value={this.state.endSessionUrl}
             onChange={this.valueChangeHandler}
             type="url"
@@ -181,7 +181,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
             name="jwksUrl"
             label={t("scm-oauth2-plugin.form.jwksUrl")}
             helpText={t("scm-oauth2-plugin.form.jwksUrlHelp")}
-            disabled={!this.state.enabled || !!this.state.discoveryUrl}
+            disabled={!this.state.enabled || !this.state.discoveryUrl}
             value={this.state.jwksUrl}
             onChange={this.valueChangeHandler}
             type="url"
