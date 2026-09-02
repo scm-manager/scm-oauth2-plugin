@@ -439,6 +439,52 @@ aufrufen.
 In diesem Modus löst jede Änderung an Web-Dateien (src/main/js oder src/main/webapp) einen Reload
 des Browsers mit den vorgenommenen Änderungen aus.
 
+## Start mit einem OIDC-Provider mit Docker
+
+Wenn kein OIDC-Provider zur Verfügung steht, kann einfach einer per Docker gestartet werden. Hierzu können
+die Dateien `docker-compose.yml` sowie die Konfiguration `dex.yaml` genutzt werden. Eine funktionierende
+Docker-Installation vorausgesetzt, wird der Provider mit diesem Befehl gestartet:
+
+```shell
+docker compose up
+```
+
+Hiermit wird ein kleiner Dex Provider. Es sind zwei Konten eingerichtet: `trillian@hog.org` and `dent@example.com`, beide mit dem Passwort `secret`.
+Über die `dex.yaml` können leicht weitere Konten erstellt werden. Hashes für andere Passwörter können mit dem folgenden
+Befehl erzeugt werden:
+
+```shell
+docker run --rm httpd:alpine htpasswd -C 10 -bnB "" "other-password" | tr -d ':\n'
+```
+
+Der SCM-Manager kann mit dem folgenden cURL Befehl konfiguriert werden:
+
+```shell
+curl -vu scmadmin:scmadmin \
+  http://localhost:8081/scm/api/v2/oauth2/configuration \
+  -H 'Content-Type: application/vnd.scmm-oauth2config+json;v=2' \
+  -XPUT \
+ --data '{
+   "providerName":"Local Test",
+   "discoveryUrl":"http://localhost:5556/dex/.well-known/openid-configuration",
+   "clientId":"scm-manager",
+   "clientSecret":"scm-secret-12345",
+   "clientSecretSet":false,
+   "scopes":"openid profile email",
+   "usernameAttribute":"name",
+   "displayNameAttribute":"name",
+   "mailAttribute":"email",
+   "groupAttribute":"groups",
+   "adminGroup":"scmadmin",
+   "importRealmRoles":false,
+   "realmRolesPath":"realm_access.roles",
+   "forceLogin":false,
+   "ssoLogout":false,
+   "migrateLocalUsers":false,
+   "enabled":true
+ }'
+```
+
 ## Verzeichnis- und Dateistruktur
 
 Ein kurzer Blick auf die Dateien und Verzeichnisse eines SCM-Manager-Projekts.
