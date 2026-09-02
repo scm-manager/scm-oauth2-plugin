@@ -1,0 +1,26 @@
+issuer: http://localhost:5556/dex
+
+storage:
+  type: memory
+
+web:
+  http: 0.0.0.0:5556
+
+staticClients:
+  - id: scm-manager
+    redirectURIs:
+      - 'http://localhost:8081/scm/api/v2/oauth2/auth/callback'
+    name: 'SCM-Manager Local'
+    secret: scm-secret-12345
+
+enablePasswordDB: true
+
+staticPasswords:
+  - email: "trillian@hog.org"
+    hash: "$2y$10$Qr88U45cK/mEbTsNUUN93eCs/sITwagQwemDPoEA65L.29LCOZ176" # Bcrypt für "secret"
+    userID: "trillian"
+    username: "trillian"
+  - email: "dent@hog.org"
+    hash: "$2y$10$Qr88U45cK/mEbTsNUUN93eCs/sITwagQwemDPoEA65L.29LCOZ176" # Bcrypt für "secret"
+    userID: "dent"
+    username: "dent"
