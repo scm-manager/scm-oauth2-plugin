@@ -463,7 +463,7 @@ curl -vu scmadmin:scmadmin \
    "displayNameAttribute":"name",
    "mailAttribute":"email",
    "groupAttribute":"groups",
-   "adminGroup":"scmadmin",
+   "adminGroup":"",
    "importRealmRoles":false,
    "realmRolesPath":"realm_access.roles",
    "forceLogin":false,
