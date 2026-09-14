@@ -73,6 +73,8 @@ scmPlugin {
   author = "Thorsten Ludewig"
   category = "Authentication"
 
+  avatarUrl = "/images/OpenID-logo.png"
+
   openapi {
     packages = [
       "de.l9g.scm.oauth2.plugin",
