@@ -9,7 +9,7 @@
 
 *[Deutsche Fassung](README_de.md)*
 
-SSO authentication for [SCM-Manager](https://scm-manager.org/) (3.x) via OAuth2 / OpenID Connect
+SSO authentication for [SCM-Manager](https://scm-manager.org/) (4.x) via OAuth2 / OpenID Connect
 using the authorization code flow. Tested with [Keycloak](https://www.keycloak.org/), but works with
 any spec compliant identity provider (IdP).
 
@@ -45,7 +45,8 @@ any spec compliant identity provider (IdP).
 ## Installation
 
 The plugin is not part of the official plugin center and is therefore installed manually. It
-requires **SCM-Manager 3.9.0 or newer**.
+requires **SCM-Manager 4.0.0-SNAPSHOT or newer** and **Java 25**.
+Use the 1.x plugin releases with SCM-Manager 3.x.
 
 1. Download `scm-oauth2-plugin.smp` from the
    [releases page](https://github.com/thorsten-l/scm-oauth2-plugin/releases)

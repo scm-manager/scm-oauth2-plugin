@@ -16,10 +16,10 @@
 
 import React, { FC, FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "@scm-manager/ui-types";
 import { useIndexLinks, useLogin } from "@scm-manager/ui-api";
-import { ErrorNotification, InputField, SubmitButton } from "@scm-manager/ui-components";
+import { Button, ErrorNotification, Field, Input } from "@scm-manager/ui-core";
 
 /**
  * Replaces the login form ("login.form" extension point). Renders a
@@ -29,8 +29,12 @@ import { ErrorNotification, InputField, SubmitButton } from "@scm-manager/ui-com
 const OAuth2LoginForm: FC = () => {
   const [t] = useTranslation("plugins");
   const links = useIndexLinks();
-  const { login, isLoading, error } = useLogin();
   const location = useLocation();
+  const navigate = useNavigate();
+  const from = new URLSearchParams(location.search).get("from") || location.state?.from || "/";
+  const { login, isPending, error } = useLogin((links?.login as Link)?.href, () => {
+    navigate(from);
+  });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +42,6 @@ const OAuth2LoginForm: FC = () => {
   const oauth2LoginLink = links?.oauth2Login as Link;
   const oauth2Login = oauth2LoginLink?.href;
   const providerName = oauth2LoginLink?.name || "OAuth2";
-  const from = new URLSearchParams(location.search).get("from") || "/";
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -59,26 +62,37 @@ const OAuth2LoginForm: FC = () => {
       )}
       <form onSubmit={handleSubmit}>
         <ErrorNotification error={error} />
-        <InputField
-          testId="username-input"
-          placeholder={t("scm-oauth2-plugin.loginForm.username")}
-          autofocus={true}
-          value={username}
-          onChange={setUsername}
-        />
-        <InputField
-          testId="password-input"
-          placeholder={t("scm-oauth2-plugin.loginForm.password")}
-          type="password"
-          value={password}
-          onChange={setPassword}
-        />
-        <SubmitButton
-          label={t("scm-oauth2-plugin.loginForm.submit")}
-          fullWidth={true}
-          loading={isLoading}
-          disabled={!login || !username || !password}
-        />
+        <Field>
+          <Input
+            testId="username-input"
+            placeholder={t("scm-oauth2-plugin.loginForm.username")}
+            aria-label={t("scm-oauth2-plugin.loginForm.username")}
+            autoFocus={true}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            disabled={isPending}
+          />
+        </Field>
+        <Field>
+          <Input
+            testId="password-input"
+            placeholder={t("scm-oauth2-plugin.loginForm.password")}
+            aria-label={t("scm-oauth2-plugin.loginForm.password")}
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            disabled={isPending}
+          />
+        </Field>
+        <Button
+          type="submit"
+          variant="primary"
+          className="is-fullwidth"
+          isLoading={isPending}
+          disabled={isPending || !login || !username || !password}
+        >
+          {t("scm-oauth2-plugin.loginForm.submit")}
+        </Button>
       </form>
     </div>
   );

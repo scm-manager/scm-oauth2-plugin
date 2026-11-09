@@ -33,7 +33,7 @@ import OAuth2LoginForm from "./OAuth2LoginForm";
 
 // navigation entry and page below "Administration / Settings", rendered as soon as
 // the index resource contains the link "oauth2Config"
-cfgBinder.bindGlobal("/oauth2", "scm-oauth2-plugin.nav-link", "oauth2Config", GlobalOAuth2Configuration);
+cfgBinder.bindAdminSetting("/oauth2", "scm-oauth2-plugin.nav-link", "oauth2Config", GlobalOAuth2Configuration);
 
 // login entry in the primary navigation, only if the login link is present
 binder.bind("primary-navigation.login", OAuth2LoginLink, props => "oauth2Login" in (props?.links as Links));

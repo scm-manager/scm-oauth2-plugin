@@ -309,9 +309,7 @@ class GlobalOAuth2ConfigurationForm extends React.Component<Props, State> {
    */
   valueChangeHandler = (value: string | boolean, name?: string) => {
     this.setState(
-      {
-        [name!]: value
-      } as Pick<State, keyof State>,
+      (state) => ({ ...state, [name!]: value }),
       () =>
         this.props.onConfigurationChange(
           {
